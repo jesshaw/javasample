@@ -1,0 +1,13 @@
+version: '2'
+services:
+    test-redis:
+        restart: always
+        image: redis:alpine
+        container_name: redisdb
+        network_mode: bridge
+        volumes:
+            - ./redisdata/:/data
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        ports:
+            - 16379:6379

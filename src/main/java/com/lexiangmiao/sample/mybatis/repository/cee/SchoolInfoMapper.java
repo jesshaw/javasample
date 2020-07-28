@@ -4,6 +4,8 @@ import com.lexiangmiao.sample.mybatis.domain.cee.SchoolInfo;
 import com.lexiangmiao.sample.mybatis.domain.cee.SchoolInfoExample;
 import com.lexiangmiao.sample.mybatis.domain.cee.SchoolInfoKey;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface SchoolInfoMapper {
