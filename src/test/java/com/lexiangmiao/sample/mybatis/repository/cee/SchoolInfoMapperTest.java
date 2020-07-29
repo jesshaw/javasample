@@ -31,7 +31,6 @@ public class SchoolInfoMapperTest {
 //        example.createCriteria().andSchoolIdEqualTo(schoolId);
         List<SchoolInfo> students = schoolInfoMapper.selectByExample(example);
 //        assertTrue(students!=null&&students.size()>0);
-
     }
 
 }

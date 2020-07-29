@@ -1,6 +1,6 @@
 package com.lexiangmiao.sample.excel;
 
-import com.lexiangmiao.sample.dto.ScoresPerYear;
+import com.lexiangmiao.sample.svc.dto.ProvincialScoreDTO;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
@@ -16,7 +16,7 @@ public class ExcelDownloadSvc {
     private static final Integer TWENTY_WIDTH = 20 * 256;
     private static final int KEEP_ROW = 100;
 
-    public Workbook scoresPerYearsToExcel(List<ScoresPerYear> scoresPerYears) throws IOException {
+    public Workbook scoresPerYearsToExcel(List<ProvincialScoreDTO> scoresPerYears) throws IOException {
         List<String> titles = Arrays.asList("学校", "办学类型", "省份", "城市", "录取批次", "招生类型"
                 , "2019最低分", "2019最低分专项", "2018最低分", "2018最低分专项", "2017最低分", "2017最低分专项"
                 , "2016最低分", "2016最低分专项", "2015最低分", "2015最低分专项", "2014最低分", "2014最低分专项", "网站地址");
@@ -24,7 +24,7 @@ public class ExcelDownloadSvc {
         Sheet sh = wb.createSheet();
         sh = createTitleRow(sh, titles);
         for (int i = 0; i < scoresPerYears.size(); i++) {
-            ScoresPerYear item = scoresPerYears.get(i);
+            ProvincialScoreDTO item = scoresPerYears.get(i);
             Row row = sh.createRow(i + 1);
             Cell cell = row.createCell(0);
             cell.setCellValue(item.getSchoolName());

@@ -1,11 +1,13 @@
-package com.lexiangmiao.sample.dto;
+package com.lexiangmiao.sample.svc.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.lexiangmiao.sample.util.CustomDoubleDeserializer;
 
 /**
  * Created by mzxiao on 2020/7/27 9:56
  */
-public class ScoresPerYear {
+public class ProvincialScoreDTO {
     private String cityName;
     private String levelName;
     @JsonProperty("school_id")
@@ -19,17 +21,20 @@ public class ScoresPerYear {
     @JsonProperty("batch")
     private String batch;
     @JsonProperty("zslx")
-    private String zslx;
+    private Integer zslx;
     @JsonProperty("xclevel")
     private String xclevel;
     @JsonProperty("max")
-    private String max;
+    @JsonDeserialize(using = CustomDoubleDeserializer.class)
+    private Double max;
     @JsonProperty("min_section")
-    private String minSection;
+    private Integer minSection;
     @JsonProperty("min")
-    private String min;
+    @JsonDeserialize(using = CustomDoubleDeserializer.class)
+    private Double min;
     @JsonProperty("average")
-    private String average;
+    @JsonDeserialize(using = CustomDoubleDeserializer.class)
+    private Double average;
     @JsonProperty("filing")
     private String filing;
     @JsonProperty("type_control")
@@ -43,9 +48,10 @@ public class ScoresPerYear {
     @JsonProperty("xclevel_name")
     private String xclevelName;
     @JsonProperty("proscore")
-    private String proscore;
+    @JsonDeserialize(using = CustomDoubleDeserializer.class)
+    private Double proscore;
     @JsonProperty("year")
-    private String year;
+    private Integer year;
 
     @JsonProperty("min_score_2019_s")
     private String minScore2019s;
@@ -71,137 +77,22 @@ public class ScoresPerYear {
     private String minScore2014s;
     @JsonProperty("min_score_2014")
     private String minScore2014;
+    private double provinceName;
 
-    public String getMinScore2019s() {
-        return minScore2019s;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setMinScore2019s(String minScore2019s) {
-        this.minScore2019s = minScore2019s;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
-    public String getMinScore2018s() {
-        return minScore2018s;
+    public String getLevelName() {
+        return levelName;
     }
 
-    public void setMinScore2018s(String minScore2018s) {
-        this.minScore2018s = minScore2018s;
-    }
-
-    public String getMinScore2017s() {
-        return minScore2017s;
-    }
-
-    public void setMinScore2017s(String minScore2017s) {
-        this.minScore2017s = minScore2017s;
-    }
-
-    public String getMinScore2016s() {
-        return minScore2016s;
-    }
-
-    public void setMinScore2016s(String minScore2016s) {
-        this.minScore2016s = minScore2016s;
-    }
-
-    public String getMinScore2015s() {
-        return minScore2015s;
-    }
-
-    public void setMinScore2015s(String minScore2015s) {
-        this.minScore2015s = minScore2015s;
-    }
-
-    public String getMinScore2014s() {
-        return minScore2014s;
-    }
-
-    public void setMinScore2014s(String minScore2014s) {
-        this.minScore2014s = minScore2014s;
-    }
-
-    private String provinceName;
-
-    public ScoresPerYear() {
-        String defaultVal = "0";
-        this.minScore2019 = defaultVal;
-
-        this.minScore2018 = defaultVal;
-
-        this.minScore2017 = defaultVal;
-
-        this.minScore2016 = defaultVal;
-
-        this.minScore2015 = defaultVal;
-
-        this.minScore2014 = defaultVal;
-        this.minScore2019s = defaultVal;
-
-        this.minScore2018s = defaultVal;
-
-        this.minScore2017s = defaultVal;
-
-        this.minScore2016s = defaultVal;
-
-        this.minScore2015s = defaultVal;
-
-        this.minScore2014s = defaultVal;
-    }
-
-    public String getMinScore2019() {
-        return minScore2019;
-    }
-
-    public void setMinScore2019(String minScore2019) {
-        this.minScore2019 = minScore2019;
-    }
-
-    public String getMinScore2018() {
-        return minScore2018;
-    }
-
-    public void setMinScore2018(String minScore2018) {
-        this.minScore2018 = minScore2018;
-    }
-
-    public String getMinScore2017() {
-        return minScore2017;
-    }
-
-    public void setMinScore2017(String minScore2017) {
-        this.minScore2017 = minScore2017;
-    }
-
-    public String getMinScore2016() {
-        return minScore2016;
-    }
-
-    public void setMinScore2016(String minScore2016) {
-        this.minScore2016 = minScore2016;
-    }
-
-    public String getMinScore2015() {
-        return minScore2015;
-    }
-
-    public void setMinScore2015(String minScore2015) {
-        this.minScore2015 = minScore2015;
-    }
-
-    public String getMinScore2014() {
-        return minScore2014;
-    }
-
-    public void setMinScore2014(String minScore2014) {
-        this.minScore2014 = minScore2014;
-    }
-
-    public String getSchoolName() {
-        return schoolName;
-    }
-
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
     }
 
     public String getSchoolId() {
@@ -210,6 +101,14 @@ public class ScoresPerYear {
 
     public void setSchoolId(String schoolId) {
         this.schoolId = schoolId;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 
     public String getProvinceId() {
@@ -236,11 +135,11 @@ public class ScoresPerYear {
         this.batch = batch;
     }
 
-    public String getZslx() {
+    public Integer getZslx() {
         return zslx;
     }
 
-    public void setZslx(String zslx) {
+    public void setZslx(Integer zslx) {
         this.zslx = zslx;
     }
 
@@ -252,35 +151,35 @@ public class ScoresPerYear {
         this.xclevel = xclevel;
     }
 
-    public String getMax() {
+    public Double getMax() {
         return max;
     }
 
-    public void setMax(String max) {
+    public void setMax(Double max) {
         this.max = max;
     }
 
-    public String getMinSection() {
+    public Integer getMinSection() {
         return minSection;
     }
 
-    public void setMinSection(String minSection) {
+    public void setMinSection(Integer minSection) {
         this.minSection = minSection;
     }
 
-    public String getMin() {
+    public Double getMin() {
         return min;
     }
 
-    public void setMin(String min) {
+    public void setMin(Double min) {
         this.min = min;
     }
 
-    public String getAverage() {
+    public Double getAverage() {
         return average;
     }
 
-    public void setAverage(String average) {
+    public void setAverage(Double average) {
         this.average = average;
     }
 
@@ -332,43 +231,123 @@ public class ScoresPerYear {
         this.xclevelName = xclevelName;
     }
 
-    public String getProscore() {
+    public Double getProscore() {
         return proscore;
     }
 
-    public void setProscore(String proscore) {
+    public void setProscore(Double proscore) {
         this.proscore = proscore;
     }
 
-    public String getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getMinScore2019s() {
+        return minScore2019s;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setMinScore2019s(String minScore2019s) {
+        this.minScore2019s = minScore2019s;
     }
 
-    public String getLevelName() {
-        return levelName;
+    public String getMinScore2019() {
+        return minScore2019;
     }
 
-    public void setLevelName(String levelName) {
-        this.levelName = levelName;
+    public void setMinScore2019(String minScore2019) {
+        this.minScore2019 = minScore2019;
     }
 
-    public void setProvinceName(String provinceName) {
-        this.provinceName = provinceName;
+    public String getMinScore2018s() {
+        return minScore2018s;
     }
 
-    public String getProvinceName() {
+    public void setMinScore2018s(String minScore2018s) {
+        this.minScore2018s = minScore2018s;
+    }
+
+    public String getMinScore2018() {
+        return minScore2018;
+    }
+
+    public void setMinScore2018(String minScore2018) {
+        this.minScore2018 = minScore2018;
+    }
+
+    public String getMinScore2017s() {
+        return minScore2017s;
+    }
+
+    public void setMinScore2017s(String minScore2017s) {
+        this.minScore2017s = minScore2017s;
+    }
+
+    public String getMinScore2017() {
+        return minScore2017;
+    }
+
+    public void setMinScore2017(String minScore2017) {
+        this.minScore2017 = minScore2017;
+    }
+
+    public String getMinScore2016s() {
+        return minScore2016s;
+    }
+
+    public void setMinScore2016s(String minScore2016s) {
+        this.minScore2016s = minScore2016s;
+    }
+
+    public String getMinScore2016() {
+        return minScore2016;
+    }
+
+    public void setMinScore2016(String minScore2016) {
+        this.minScore2016 = minScore2016;
+    }
+
+    public String getMinScore2015s() {
+        return minScore2015s;
+    }
+
+    public void setMinScore2015s(String minScore2015s) {
+        this.minScore2015s = minScore2015s;
+    }
+
+    public String getMinScore2015() {
+        return minScore2015;
+    }
+
+    public void setMinScore2015(String minScore2015) {
+        this.minScore2015 = minScore2015;
+    }
+
+    public String getMinScore2014s() {
+        return minScore2014s;
+    }
+
+    public void setMinScore2014s(String minScore2014s) {
+        this.minScore2014s = minScore2014s;
+    }
+
+    public String getMinScore2014() {
+        return minScore2014;
+    }
+
+    public void setMinScore2014(String minScore2014) {
+        this.minScore2014 = minScore2014;
+    }
+
+    public double getProvinceName() {
         return provinceName;
+    }
+
+    public void setProvinceName(double provinceName) {
+        this.provinceName = provinceName;
     }
 }

@@ -195,45 +195,10 @@ public class ScoresPerYearsTest {
     }
 
     @Test
-    @Ignore
-    public void fetchSchoolSaveRedis() throws Exception {
-
-
-        for (int i = 1; i < schoolSize / pageSize + 1; i++) {
-            String url = String.format("https://api.eol.cn/gkcx/api/?access_token=&admissions=&central=&department=&dual_class=&f211=&f985=&is_dual_class=&keyword=&page=%d&province_id=&request_type=1&school_type=&signsafe=&size=20&sort=view_total&type=&uri=apigkcx/api/school/hotlists", i);
-            String result = ScoresPerYears.fetchById(url);
-            System.out.println(url);
-            redisTemplate.opsForValue().set(schoolPage + i, result, oneYearTimeout, TimeUnit.SECONDS);
-            Thread.sleep(500);
-        }
-    }
-
-    @Test
     public void fetchSchoolVerify() throws Exception {
         System.out.println(redisTemplate.opsForValue().get(schoolPage + 1));
         System.out.println("");
         System.out.println(redisTemplate.opsForValue().get(schoolPage + 147));
-    }
-
-    @Test
-    public void fetchAllSchoolIdSavRedis() throws Exception {
-        List<Integer> schoolIds = new ArrayList<>();
-        for (int i = 1; i < schoolSize / pageSize + 1; i++) {
-            String pageResult = redisTemplate.opsForValue().get(schoolPage + i);
-            JsonNode node = JacksonJsonUtil.readNode(pageResult, "/data/item");
-            if (node != null) {
-                List<School> schools = JacksonJsonUtil.parseArray(node.toString(), School.class);
-
-                schools.stream().forEach(o -> {
-                    schoolIds.add(o.getSchoolId());
-                    redisTemplate.opsForValue().set(schoolIdpre + o.getSchoolId(), JacksonJsonUtil.toJsonString(o), oneYearTimeout, TimeUnit.SECONDS);
-                });
-            }
-        }
-        Collections.sort(schoolIds);
-        String schoolIdsStr = String.join(schoolIdSplit, schoolIds.stream().map(o -> o.toString()).collect(Collectors.toList()));
-        System.out.println(schoolIdsStr);
-        redisTemplate.opsForValue().set(allSchoolIds, schoolIdsStr, oneYearTimeout, TimeUnit.SECONDS);
     }
 
     @Test

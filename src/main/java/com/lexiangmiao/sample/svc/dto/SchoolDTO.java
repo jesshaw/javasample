@@ -1,4 +1,4 @@
-package com.lexiangmiao.sample.dto;
+package com.lexiangmiao.sample.svc.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mzxiao on 2020/7/27 9:55
  */
-public class School {
+public class SchoolDTO {
     @JsonProperty("address")
     String address;
     @JsonProperty("admissions")

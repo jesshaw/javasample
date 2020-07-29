@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.util.StringUtils;
 
@@ -25,12 +26,13 @@ public class JacksonJsonUtil {
         return mapper.readValue(content, valueType);
     }
 
+
     public static <T> T parseObjectIgnoreCase(String content, Class<T> valueType) throws IOException {
         if (content == null) {
             return null;
         }
         ObjectMapper mapper = getObjectMapper();
-        mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+
         return mapper.readValue(content, valueType);
     }
 
@@ -47,6 +49,12 @@ public class JacksonJsonUtil {
             return null;
         }
         ObjectMapper mapper = getObjectMapper();
+
+        mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+
+
+//        SimpleModule module = new SimpleModule();
+//        module.addDeserializer(Integer.class, new CustomDoubleDeserializer());
         return mapper.readValue(content, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
     }
 
