@@ -1,10 +1,12 @@
 package com.lexiangmiao.sample.svc;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by mzxiao on 2020/7/29 17:32
  */
+@Service
 public class SchoolRedisSvc {
 
     private final RedisTemplate<String, String> redisTemplate;

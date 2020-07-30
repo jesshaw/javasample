@@ -29,11 +29,13 @@ public class SchoolSvc {
     private final RedisTemplate<String, String> redisTemplate;
     private final SchoolInfoMapper schoolInfoMapper;
     private final SchoolAdapter schoolAdapter;
+    private final SchoolRedisSvc schoolRedisSvc;
 
-    public SchoolSvc(RedisTemplate<String, String> redisTemplate, SchoolInfoMapper schoolInfoMapper, SchoolAdapter schoolAdapter) {
+    public SchoolSvc(RedisTemplate<String, String> redisTemplate, SchoolInfoMapper schoolInfoMapper, SchoolAdapter schoolAdapter, SchoolRedisSvc schoolRedisSvc) {
         this.redisTemplate = redisTemplate;
         this.schoolInfoMapper = schoolInfoMapper;
         this.schoolAdapter = schoolAdapter;
+        this.schoolRedisSvc = schoolRedisSvc;
     }
 
     /**
@@ -76,16 +78,6 @@ public class SchoolSvc {
         redisTemplate.opsForValue().set(RedisKey.School.allSchoolIds, schoolIdsStr, RedisKey.oneYear, TimeUnit.SECONDS);
     }
 
-    /**
-     * 从学校的redis中获取所有学校id
-     *
-     * @throws Exception
-     */
-    public String[] fetchAllSchoolIds() {
-        String allSchoolIdsStr = redisTemplate.opsForValue().get(RedisKey.School.allSchoolIds);
-        return allSchoolIdsStr.split(RedisKey.splitStr);
-    }
-
     public void syncToDBBySchoolId(String schoolId) throws IOException {
         String schoolInfoInRedis = redisTemplate.opsForValue().get(RedisKey.School.schoolIdpre + schoolId);
         SchoolDTO school = JacksonJsonUtil.parseObject(schoolInfoInRedis, SchoolDTO.class);
@@ -94,15 +86,14 @@ public class SchoolSvc {
         SchoolInfoExample example = new SchoolInfoExample();
         example.createCriteria()
                 .andSchoolIdEqualTo(school.getSchoolId());
-        int rowNumber=schoolInfoMapper.updateByExampleSelective(schoolInfo, example);
+        int rowNumber = schoolInfoMapper.updateByExampleSelective(schoolInfo, example);
         if (rowNumber <= 0) {
             schoolInfoMapper.insertSelective(schoolInfo);
         }
     }
 
     public void syncToDB() throws IOException {
-        for (String schoolId :
-                fetchAllSchoolIds()) {
+        for (String schoolId : schoolRedisSvc.fetchAllSchoolIds()) {
             syncToDBBySchoolId(schoolId);
         }
     }

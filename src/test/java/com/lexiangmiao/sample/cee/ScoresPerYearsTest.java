@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * https://api.eol.cn/gkcx/api/?access_token=&admissions=&central=&department=&dual_class=&f211=&f985=&is_dual_class=&keyword=&page=1&province_id=&request_type=1&school_type=&signsafe=&size=3000&sort=view_total&type=&uri=apigkcx/api/school/hotlists
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {BeanConfig.class})
+//@ContextConfiguration(classes = {BeanConfig.class})
 public class ScoresPerYearsTest {
     final String schoolPage = "school_page_";
     final String allSchoolIds = "all_school_ids";

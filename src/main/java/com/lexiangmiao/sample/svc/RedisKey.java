@@ -20,4 +20,12 @@ public final class RedisKey {
     class ProvincialScore {
         final static String schoolPerYearScore = "school_per_year_score_%s/43/2/1.json";
     }
+
+    public class SchoolSpecialty {
+        final static String pre = "schoolspecialindex/%d/%s/43/%d/1.json";
+    }
+
+    public class SchoolPlan {
+        final static String pre = "schoolplanindex/%d/%s/43/%d/%d/1.json";
+    }
 }

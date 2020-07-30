@@ -76,3 +76,36 @@ CREATE TABLE `provincial_score` (
   KEY `ix_school_id` (`school_id`),
   KEY `ix_province_id` (`province_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='省分数线';
+
+
+
+
+CREATE TABLE `school_specialty` (
+  `school_specialty_id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `school_id` varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`special_id` varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`type`   varchar(50)  NOT NULL DEFAULT '' COMMENT '文理科',
+`max`    double NOT NULL DEFAULT 0 COMMENT '最高分',
+`min`    double NOT NULL DEFAULT 0 COMMENT '最低分',
+`average`    double NOT NULL DEFAULT 0 COMMENT '平均分',
+`min_section`     INTEGER NOT NULL DEFAULT 0 COMMENT '',
+`province`     varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`batch`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`id`     INTEGER NOT NULL DEFAULT 0 COMMENT '',
+`spid`     INTEGER NOT NULL DEFAULT 0 COMMENT '',
+`zslx`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`info`    varchar(2000)  NOT NULL DEFAULT '' COMMENT '',
+`level1_name`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`level2_name`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`level3_name`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`level1`       varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`level2`        varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`spname`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`level3`        varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`local_batch_name`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`zslx_name`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `year` INTEGER NOT NULL DEFAULT 0 COMMENT '年份',
+  PRIMARY KEY (`school_specialty_id`),
+  KEY `ix_school_id` (`school_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='学校专业分数';
+

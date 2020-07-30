@@ -208,8 +208,10 @@
         <!--</table>-->
         <!--<table tableName="article_comment"/>-->
         <!--<table tableName="article_interaction"/>-->
-        <table tableName="school_info"/>
-        <table tableName="provincial_score"/>
+        <!--<table tableName="school_info"/>-->
+        <!--<table tableName="provincial_score"/>-->
+        <table tableName="school_specialty"/>
+        <table tableName="school_plan"/>
 
         <!--&lt;!&ndash; 参考 javaModelGenerator 的 constructorBased属性&ndash;&gt;-->
         <!--<property name="constructorBased" value="false"/>-->

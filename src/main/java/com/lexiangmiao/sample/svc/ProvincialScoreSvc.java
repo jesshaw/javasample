@@ -25,25 +25,17 @@ public class ProvincialScoreSvc {
     private final RedisTemplate<String, String> redisTemplate;
     private final ProvincialScoreMapper provincialScoreMapper;
     private final ProvincialScoreAdapter provincialScoreAdapter;
+    private final SchoolRedisSvc schoolRedisSvc;
 
-    public ProvincialScoreSvc(RedisTemplate<String, String> redisTemplate, ProvincialScoreMapper provincialScoreMapper, ProvincialScoreAdapter provincialScoreAdapter) {
+    public ProvincialScoreSvc(RedisTemplate<String, String> redisTemplate, ProvincialScoreMapper provincialScoreMapper, ProvincialScoreAdapter provincialScoreAdapter, SchoolRedisSvc schoolRedisSvc) {
         this.redisTemplate = redisTemplate;
         this.provincialScoreMapper = provincialScoreMapper;
         this.provincialScoreAdapter = provincialScoreAdapter;
-    }
-
-    /**
-     * 从学校的redis中获取所有学校id
-     *
-     * @throws Exception
-     */
-    public String[] fetchAllSchoolIds() {
-        String allSchoolIdsStr = redisTemplate.opsForValue().get(RedisKey.School.allSchoolIds);
-        return allSchoolIdsStr.split(RedisKey.splitStr);
+        this.schoolRedisSvc = schoolRedisSvc;
     }
 
     public void fetchAllProvicialScoresSaveRedis() throws Exception {
-        for (String item : fetchAllSchoolIds()) {
+        for (String item : schoolRedisSvc.fetchAllSchoolIds()) {
             saveRedisBySchoolId(item, 500);
         }
     }
@@ -58,7 +50,7 @@ public class ProvincialScoreSvc {
     }
 
     public void fetchAllProvicialScoresIfEmptyResaveRedis() throws Exception {
-        for (String item : fetchAllSchoolIds()) {
+        for (String item : schoolRedisSvc.fetchAllSchoolIds()) {
             String redisStr = redisTemplate.opsForValue().get(String.format(RedisKey.ProvincialScore.schoolPerYearScore, item));
             if ("\"\"".equals(redisStr) || StringUtils.isEmpty(redisStr)) {
                 saveRedisBySchoolId(item, 500);
@@ -96,7 +88,7 @@ public class ProvincialScoreSvc {
     }
 
     public void syncToDB() throws IOException {
-        for (String schoolId : fetchAllSchoolIds()) {
+        for (String schoolId : schoolRedisSvc.fetchAllSchoolIds()) {
             syncToDBBySchoolId(schoolId);
         }
     }
