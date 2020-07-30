@@ -3,65 +3,11 @@ package com.lexiangmiao.sample.svc.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.lexiangmiao.sample.util.CustomDoubleDeserializer;
-import com.lexiangmiao.sample.util.CustomIntegerDeserializer;
 
 /**
- * Created by mzxiao on 2020/7/30 8:53
+ * Created by mzxiao on 2020/7/30 11:21
  */
-public class SchoolSpecialtyDTO {
-
-    @JsonProperty("school_id")
-
-    String schoolId;
-    @JsonProperty("special_id")
-    String specialId;
-    @JsonProperty("type")
-    String type;
-    @JsonProperty("max")
-    @JsonDeserialize(using = CustomDoubleDeserializer.class)
-    Double max;
-    @JsonProperty("min")
-    @JsonDeserialize(using = CustomDoubleDeserializer.class)
-    Double min;
-    @JsonProperty("average")
-    @JsonDeserialize(using = CustomDoubleDeserializer.class)
-    Double average;
-    @JsonProperty("min_section")
-    @JsonDeserialize(using = CustomIntegerDeserializer.class)
-    Integer minSection;
-    @JsonProperty("province")
-    String province;
-    @JsonProperty("batch")
-    String batch;
-    @JsonProperty("id")
-    Integer id;
-    @JsonProperty("spid")
-    @JsonDeserialize(using = CustomIntegerDeserializer.class)
-    Integer spid;
-    @JsonProperty("zslx")
-    String zslx;
-    @JsonProperty("info")
-    String info;
-    @JsonProperty("level1_name")
-    String level1Name;
-    @JsonProperty("level2_name")
-    String level2Name;
-    @JsonProperty("level3_name")
-    String level3Name;
-    @JsonProperty("level1")
-    String level1;
-    @JsonProperty("level2")
-    String level2;
-    @JsonProperty("spname")
-    String spname;
-    @JsonProperty("level3")
-    String level3;
-    @JsonProperty("local_batch_name")
-    String localBatchName;
-    @JsonProperty("zslx_name")
-    String zslxName;
-    Integer year;
-
+public class SchoolPlanDTO {
     public String getSchoolId() {
         return schoolId;
     }
@@ -78,44 +24,20 @@ public class SchoolSpecialtyDTO {
         this.specialId = specialId;
     }
 
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Double getMax() {
-        return max;
-    }
-
-    public void setMax(Double max) {
-        this.max = max;
-    }
-
-    public Double getMin() {
-        return min;
-    }
-
-    public void setMin(Double min) {
-        this.min = min;
-    }
-
-    public Double getAverage() {
-        return average;
-    }
-
-    public void setAverage(Double average) {
-        this.average = average;
-    }
-
-    public Integer getMinSection() {
-        return minSection;
-    }
-
-    public void setMinSection(Integer minSection) {
-        this.minSection = minSection;
     }
 
     public String getProvince() {
@@ -134,19 +56,19 @@ public class SchoolSpecialtyDTO {
         this.batch = batch;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getSpid() {
+    public String getSpid() {
         return spid;
     }
 
-    public void setSpid(Integer spid) {
+    public void setSpid(String spid) {
         this.spid = spid;
     }
 
@@ -245,4 +167,44 @@ public class SchoolSpecialtyDTO {
     public void setYear(Integer year) {
         this.year = year;
     }
+
+    @JsonProperty("school_id")
+    String schoolId;
+    @JsonProperty("special_id")
+    String specialId;
+    @JsonProperty("num")
+    Integer num;
+    @JsonProperty("type")
+    String type;
+    @JsonProperty("province")
+    String province;
+    @JsonProperty("batch")
+    String batch;
+    @JsonProperty("id")
+    String id;
+    @JsonProperty("spid")
+    String spid;
+    @JsonProperty("zslx")
+    String zslx;
+    @JsonProperty("info")
+    String info;
+    @JsonProperty("level1_name")
+    String level1Name;
+    @JsonProperty("level2_name")
+    String level2Name;
+    @JsonProperty("level3_name")
+    String level3Name;
+    @JsonProperty("level1")
+    String level1;
+    @JsonProperty("level2")
+    String level2;
+    @JsonProperty("spname")
+    String spname;
+    @JsonProperty("level3")
+    String level3;
+    @JsonProperty("local_batch_name")
+    String localBatchName;
+    @JsonProperty("zslx_name")
+    String zslxName;
+    Integer year;
 }

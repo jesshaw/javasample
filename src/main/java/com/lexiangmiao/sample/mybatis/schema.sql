@@ -100,7 +100,7 @@ CREATE TABLE `school_specialty` (
 `level3_name`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
 `level1`       varchar(50)  NOT NULL DEFAULT '' COMMENT '',
 `level2`        varchar(50)  NOT NULL DEFAULT '' COMMENT '',
-`spname`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+`spname`    varchar(2000)  NOT NULL DEFAULT '' COMMENT '',
 `level3`        varchar(50)  NOT NULL DEFAULT '' COMMENT '',
 `local_batch_name`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
 `zslx_name`    varchar(50)  NOT NULL DEFAULT '' COMMENT '',
@@ -108,4 +108,30 @@ CREATE TABLE `school_specialty` (
   PRIMARY KEY (`school_specialty_id`),
   KEY `ix_school_id` (`school_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='学校专业分数';
+
+CREATE TABLE `school_plan` (
+  `school_plan_id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `school_id` varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `special_id`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `num`  INTEGER NOT NULL DEFAULT 0 COMMENT '',
+  `type`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `province`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `batch`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `id`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `spid`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `zslx`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `info`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `level1_name`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `level2_name`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `level3_name`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `level1`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `level2`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `spname`  varchar(2000)  NOT NULL DEFAULT '' COMMENT '',
+  `level3`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `local_batch_name`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `zslx_name`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `year` INTEGER NOT NULL DEFAULT 0 COMMENT '年份',
+  PRIMARY KEY (`school_plan_id`),
+  KEY `ix_school_id` (`school_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='招生计划';
 

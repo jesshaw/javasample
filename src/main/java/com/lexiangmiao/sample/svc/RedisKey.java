@@ -22,10 +22,10 @@ public final class RedisKey {
     }
 
     public class SchoolSpecialty {
-        final static String pre = "schoolspecialindex/%d/%s/43/%d/1.json";
+        final static String pre = "schoolspecialindex/%d/%s/43/%d/%d.json";
     }
 
     public class SchoolPlan {
-        final static String pre = "schoolplanindex/%d/%s/43/%d/%d/1.json";
+        final static String pre = "schoolplanindex/%d/%s/43/%d/%d/%d.json";
     }
 }

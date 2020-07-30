@@ -153,5 +153,110 @@ WHERE 1=1
 AND s.school_id in (544)
 ORDER BY x.batch,x.year,x.min
 
+-- 每年一本录取最低位次的10所学校
+SELECT  x.year,
+  x.min_section,
+  x.min,
+  s.name,
+  s.province_name,
+  x.local_batch_name,
+  x.zslx_name,
+  concat('https://gkcx.eol.cn/school/',x.school_id,+'/provinceline') as url
+FROM school_info s
+  JOIN (
+         (SELECT *
+          FROM provincial_score
+          WHERE min_section > 0 AND batch = 7 AND year = 2019
+          ORDER BY min_section desc
+          LIMIT 10)
+         UNION ALL
+         (SELECT *
+          FROM provincial_score
+          WHERE min_section > 0 AND batch = 7 AND year = 2018
+          ORDER BY min_section desc
+          LIMIT 10)
+         UNION ALL
+         (SELECT *
+          FROM provincial_score
+          WHERE min_section > 0 AND batch = 7 AND year = 2017
+          ORDER BY min_section desc
+          LIMIT 10)
+         UNION ALL
+         (SELECT *
+          FROM provincial_score
+          WHERE min_section > 0 AND batch = 7 AND year = 2016
+          ORDER BY min_section desc
+          LIMIT 10)
+         UNION ALL
+         (SELECT *
+          FROM provincial_score
+          WHERE min_section > 0 AND batch = 7 AND year = 2015
+          ORDER BY min_section desc
+          LIMIT 10)
+       ) x ON x.school_id=s.school_id
+ORDER BY x.year DESC,x.min_section DESC
+
+-- 指定一本的专业录取位次和分数
+SELECT  x.year,
+  x.min_section,
+  x.min,
+  s.name,
+  s.province_name,
+  x.spname,
+  x.*,
+  concat('https://gkcx.eol.cn/school/',x.school_id,+'/provinceline') as url
+FROM school_info s
+  JOIN (
+         (SELECT *
+          FROM school_specialty
+           WHERE batch =7
+          AND school_id in(402,406)
+#            AND level2=7
+#            AND level3 in (47,48)
+         )
+       ) x ON x.school_id=s.school_id
+ORDER BY x.year DESC,x.min_section DESC
+
+
+
+-- 预测录取学校
+SELECT
+  x.year,
+  x.min_section,
+  x.min,
+  s.name,
+  s.province_name,
+  x.local_batch_name,
+  x.zslx_name,
+  concat('https://gkcx.eol.cn/school/', x.school_id, +'/provinceline') AS url
+FROM school_info s
+  JOIN (
+         -- 年份      参考人数    文科  反推位数
+         -- 2017      410800      152900  12770
+         -- 2018      451800      168700  13175
+         -- 2019      499000      185000  14448
+         -- 2020      536000      194000  15151
+         (SELECT *
+          FROM provincial_score
+          WHERE batch = 7
+                AND year = 2019
+                AND min_section > 14448
+         )
+         UNION ALL
+         (SELECT *
+          FROM provincial_score
+          WHERE batch = 7
+                AND year = 2018
+                AND min_section > 13175
+         )
+         UNION ALL
+         (SELECT *
+          FROM provincial_score
+          WHERE batch = 7
+                AND year = 2017
+                AND min_section > 12770
+         )
+       ) x ON x.school_id = s.school_id
+ORDER BY x.year DESC, x.min_section DESC
 
 

@@ -1,12 +1,9 @@
 package com.lexiangmiao.sample.svc;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.lexiangmiao.sample.mybatis.domain.cee.SchoolInfo;
-import com.lexiangmiao.sample.mybatis.domain.cee.SchoolInfoExample;
 import com.lexiangmiao.sample.mybatis.domain.cee.SchoolSpecialty;
 import com.lexiangmiao.sample.mybatis.domain.cee.SchoolSpecialtyExample;
 import com.lexiangmiao.sample.mybatis.repository.cee.SchoolSpecialtyMapper;
-import com.lexiangmiao.sample.svc.dto.SchoolDTO;
 import com.lexiangmiao.sample.svc.dto.SchoolSpecialtyDTO;
 import com.lexiangmiao.sample.svc.dto.SubjectType;
 import com.lexiangmiao.sample.svc.dto.Year;
@@ -40,9 +37,11 @@ public class SchoolSpecialtySvc {
 
     public void fetchAllSchoolSpecialtySaveRedis() throws Exception {
         for (String schoolId : schoolRedisSvc.fetchAllSchoolIds()) {
+//            if (Integer.parseInt(schoolId)>1074) {
             for (Integer year : Year.getValuesNotEquals(2020)) {
                 fetchSchoolSpecialtySaveRedisBy(year, schoolId, SubjectType.LIBERAL_ARTS.value(), 200);
             }
+//            }
         }
     }
 
@@ -53,8 +52,8 @@ public class SchoolSpecialtySvc {
     }
 
 
-    public String generateKey(Integer year, String schoolId, Integer subjectType) {
-        return String.format(RedisKey.SchoolSpecialty.pre, year, schoolId, subjectType);
+    public String generateKey(Integer year, String schoolId, Integer subjectType, int pageSize) {
+        return String.format(RedisKey.SchoolSpecialty.pre, year, schoolId, subjectType, pageSize);
     }
 
     /**
@@ -65,41 +64,50 @@ public class SchoolSpecialtySvc {
      * @throws InterruptedException
      */
     public void fetchSchoolSpecialtySaveRedisBy(Integer year, String schoolId, Integer subjectType, int sleepMilliseconds) throws InterruptedException {
-//    https://static-data.eol.cn/www/2.0/schoolspecialindex/年份/分校/湖南/文科/1.json
+//    https://static-data.eol.cn/www/2.0/schoolspecialindex/年份/分校/湖南/文科/第几页.json
 //    https://static-data.eol.cn/www/2.0/schoolspecialindex/2019/402/43/2/1.json
-        String key = generateKey(year, schoolId, subjectType);
-        String url = String.format("https://static-data.eol.cn/www/2.0/%s", key);
-        String result = RestTemplateProxy.fetch(url);
-        redisTemplate.opsForValue().set(key, result, RedisKey.oneYear, TimeUnit.SECONDS);
-        Thread.sleep(sleepMilliseconds);
+        String result;
+        int pageSize = 1;
+        do {
+            String key = generateKey(year, schoolId, subjectType, pageSize);
+            String url = String.format("https://static-data.eol.cn/www/2.0/%s", key);
+            result = RestTemplateProxy.fetch(url);
+            System.out.println(url);
+            redisTemplate.opsForValue().set(key, result, RedisKey.oneYear, TimeUnit.SECONDS);
+            Thread.sleep(sleepMilliseconds);
+            pageSize++;
+        } while (!"\"\"".equals(result));
     }
 
     public void syncToDBBySchoolId(String schoolId) throws IOException {
         for (Integer year : Year.getValuesNotEquals(2020)) {
-            String key = generateKey(year, schoolId, SubjectType.LIBERAL_ARTS.value());
-            String redisValue = redisTemplate.opsForValue().get(key);
-            JsonNode node = JacksonJsonUtil.readNode(redisValue, "/data/item");
-            if (node != null) {
-                List<SchoolSpecialtyDTO> dtos = JacksonJsonUtil.parseArray(node.toString(), SchoolSpecialtyDTO.class);
-                for (SchoolSpecialtyDTO dto :
-                        dtos) {
-                    dto.setYear(year);
-                    SchoolSpecialty schoolSpecialty = schoolSpecialtyAdapter.schoolSpecialtyDTOToSchoolSpecialty(dto);
+            int pageSize = 1;
+            String redisValue;
+            do {
+                String key = generateKey(year, schoolId, SubjectType.LIBERAL_ARTS.value(), pageSize);
+                redisValue = redisTemplate.opsForValue().get(key);
+                JsonNode node = JacksonJsonUtil.readNode(redisValue, "/data/item");
+                if (node != null && !"".equals(node.toString())) {
+                    List<SchoolSpecialtyDTO> dtos = JacksonJsonUtil.parseArray(node.toString(), SchoolSpecialtyDTO.class);
+                    for (SchoolSpecialtyDTO dto : dtos) {
+                        dto.setYear(year);
+                        SchoolSpecialty schoolSpecialty = schoolSpecialtyAdapter.schoolSpecialtyDTOToSchoolSpecialty(dto);
 
-                    SchoolSpecialtyExample example = new SchoolSpecialtyExample();
-                    example.createCriteria()
-                            .andSchoolIdEqualTo(schoolSpecialty.getSchoolId())
-                            .andYearEqualTo(schoolSpecialty.getYear())
-                            .andTypeEqualTo(schoolSpecialty.getType())
-                            .andSpecialIdEqualTo(schoolSpecialty.getSpecialId())
-                    ;
-                    int rowNumber = schoolSpecialtyMapper.updateByExampleSelective(schoolSpecialty, example);
-                    if (rowNumber <= 0) {
-                        schoolSpecialtyMapper.insertSelective(schoolSpecialty);
+                        SchoolSpecialtyExample example = new SchoolSpecialtyExample();
+                        example.createCriteria()
+                                .andSchoolIdEqualTo(schoolSpecialty.getSchoolId())
+                                .andYearEqualTo(schoolSpecialty.getYear())
+                                .andTypeEqualTo(schoolSpecialty.getType())
+                                .andSpecialIdEqualTo(schoolSpecialty.getSpecialId())
+                        ;
+                        int rowNumber = schoolSpecialtyMapper.updateByExampleSelective(schoolSpecialty, example);
+                        if (rowNumber <= 0) {
+                            schoolSpecialtyMapper.insertSelective(schoolSpecialty);
+                        }
                     }
                 }
-
-            }
+                pageSize++;
+            } while (!"\"\"".equals(redisValue) && !StringUtils.isEmpty(redisValue));
         }
 
     }
