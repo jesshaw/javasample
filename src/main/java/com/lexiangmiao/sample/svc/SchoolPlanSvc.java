@@ -37,11 +37,9 @@ public class SchoolPlanSvc {
 
     public void fetchAllSchoolPlanSaveRedis() throws Exception {
         for (String schoolId : schoolRedisSvc.fetchAllSchoolIds()) {
-            if (Integer.parseInt(schoolId) > 640) {
-                for (Integer year : Year.getAllValues()) {
-                    for (Integer batch : AdmissionBatch.getAllValues()) {
-                        fetchSchoolPlanSaveRedisBy(year, schoolId, SubjectType.LIBERAL_ARTS.value(), batch, 200);
-                    }
+            for (Integer year : Year.getAllValues()) {
+                for (Integer batch : AdmissionBatch.getAllValues()) {
+                    fetchSchoolPlanSaveRedisBy(year, schoolId, SubjectType.LIBERAL_ARTS.value(), batch, 200);
                 }
             }
         }
