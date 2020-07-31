@@ -120,7 +120,7 @@ CREATE TABLE `school_plan` (
   `id`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
   `spid`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
   `zslx`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
-  `info`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
+  `info`  varchar(2000)  NOT NULL DEFAULT '' COMMENT '',
   `level1_name`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
   `level2_name`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
   `level3_name`  varchar(50)  NOT NULL DEFAULT '' COMMENT '',
