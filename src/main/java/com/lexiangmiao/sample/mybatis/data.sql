@@ -260,3 +260,140 @@ FROM school_info s
 ORDER BY x.year DESC, x.min_section DESC
 
 
+-- 二本文学专业对应位置的录取大学
+
+SELECT  x.*,
+  s.name,
+  s.province_name,
+  concat('https://gkcx.eol.cn/school/',s.school_id,+'/provinceline') as url
+FROM school_info s
+  JOIN (
+         (SELECT
+            DISTINCT
+            year,
+            school_id,
+            level2_name,
+            min,
+            min(min_section) as min_section
+          FROM school_specialty
+          WHERE batch = 8
+                AND level2 = 7
+                #                    AND level3 IN (47, 48)
+                AND year = 2019
+                AND min_section>=14500
+          GROUP BY year, school_id,level2_name,min
+          ORDER BY min_section ASC
+          LIMIT 10
+         )
+         UNION ALL
+         (SELECT
+            DISTINCT
+            year,
+            school_id,
+            level2_name,
+            min,
+            min(min_section) as min_section
+          FROM school_specialty
+          WHERE batch = 8
+                AND level2 = 7
+                #                    AND level3 IN (47, 48)
+                AND year = 2018
+                AND min_section>=13000
+          GROUP BY year, school_id,level2_name,min
+          ORDER BY min_section ASC
+          LIMIT 10
+         )
+         UNION ALL
+         (SELECT
+            DISTINCT
+            year,
+            school_id,
+            level2_name,
+            min,
+            min(min_section) as min_section
+          FROM school_specialty
+          WHERE batch = 8
+                AND level2 = 7
+                #                    AND level3 IN (47, 48)
+                AND year = 2017
+                AND min_section>=12500
+          GROUP BY year, school_id,level2_name,min
+          ORDER BY min_section DESC
+          LIMIT 10
+         )
+       )x on s.school_id=x.school_id;
+
+-- 年份      参考人数    文科  反推位数
+-- 2017      410800      152900  12770 12500
+-- 2018      451800      168700  13175 13000
+-- 2019      499000      185000  14448 14500
+-- 2020      536000      194000  15151 15000
+
+# 意向大学招生人数和每年的位次和分数
+
+SELECT
+  #   ss1.*,
+  s.province_name,
+  s.school_id,
+  s.name,
+  s.type_name,
+  s.nature_name,
+  ss1.num,
+  x2019.min_section AS 2019_min_section,x2019.max_section AS 2019_max_section, x2019.min AS 2019_min, x2019.max AS 2019_max,
+  x2018.min_section AS 2018_min_section,x2018.max_section AS 2018_max_section, x2018.min AS 2018_min, x2018.max AS 2018_max,
+  x2017.min_section AS 2017_min_section,x2017.max_section AS 2017_max_section, x2017.min AS 2017_min, x2017.max AS 2017_max,
+  concat('https://gkcx.eol.cn/school/',s.school_id,+'/provinceline') as url
+FROM (
+       SELECT
+         p.school_id,
+         sum(p.num) AS num
+       FROM school_plan p
+         JOIN sschool ss
+           ON p.school_id = ss.school_id
+       WHERE year = 2020
+       GROUP BY p.school_id
+
+     ) ss1
+  JOIN (
+         SELECT
+           year,
+           school_id,
+           max(min_section) AS max_section,
+           min(min_section) AS min_section,
+           max(min)         AS max,
+           min(min)         AS min
+         FROM school_specialty
+         WHERE batch = 8
+               AND year = 2019
+#            AND school_id=531
+         GROUP BY year, school_id
+       ) x2019 ON x2019.school_id = ss1.school_id
+  JOIN (
+         SELECT
+           year,
+           school_id,
+           max(min_section) AS max_section,
+           min(min_section) AS min_section,
+           max(min)         AS max,
+           min(min)         AS min
+         FROM school_specialty
+         WHERE batch = 8
+               AND year = 2018
+         GROUP BY year, school_id
+       ) x2018 ON x2018.school_id = ss1.school_id
+  JOIN (
+         SELECT
+           year,
+           school_id,
+           max(min_section) AS max_section,
+           min(min_section) AS min_section,
+           max(min)         AS max,
+           min(min)         AS min
+         FROM school_specialty
+         WHERE batch = 8
+               AND year = 2017
+         GROUP BY year, school_id
+       ) x2017 ON x2017.school_id = ss1.school_id
+  JOIN school_info s ON s.school_id = ss1.school_id
+ORDER BY s.province_id, x2019.min_section DESC
+
