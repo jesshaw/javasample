@@ -1,0 +1,37 @@
+CREATE TABLE t1(
+  a int PRIMARY KEY ,
+  b int,
+  c int,
+  d int,
+  e VARCHAR(20)
+) ENGINE =InnoDB;
+
+SHOW INDEX  FROM t1;
+
+INSERT INTO t1 VALUES (4, 3, 1, 1, 'd');
+INSERT INTO t1 VALUES (1, 1, 1, 1, 'a');
+INSERT INTO t1 VALUES (8, 8, 8, 8, 'h');
+INSERT INTO t1 VALUES (2, 2, 2, 2, 'd');
+INSERT INTO t1 VALUES (5, 2, 3, 5, 'e');
+INSERT INTO t1 VALUES (3, 3, 2, 2, 'c');
+INSERT INTO t1 VALUES (7, 4, 5, 5, 'g');
+INSERT INTO t1 VALUES (6, 6, 4, 4, 'f');
+INSERT INTO t1 VALUES (9, 0, 4, 4, 'g');
+
+SELECT * FROM t1 WHERE a=8;
+
+CREATE INDEX i_bcd ON t1(b,c,d);
+CREATE INDEX i_e ON t1(e);
+
+EXPLAIN SELECT * FROM t1 WHERE a=1;
+EXPLAIN SELECT b,c,d FROM t1 WHERE b=3 AND c=3 AND d=2;
+EXPLAIN SELECT * FROM t1 WHERE b=3 AND c=3 AND d=2;
+EXPLAIN SELECT * FROM t1 WHERE c=3 AND d=2;
+EXPLAIN SELECT b,c,d FROM t1;
+
+EXPLAIN SELECT * FROM t1 WHERE b<1;
+EXPLAIN SELECT * FROM t1 WHERE b>1; -- 不走索引
+-- type为  const ref const index 则可能走索引，all全表扫描
+EXPLAIN SELECT * FROM t1 WHERE b='a'; -- 右边转换成数字0
+EXPLAIN SELECT * FROM t1 WHERE e=1;  -- 不走索引 凡是对字段进行了操作则不走索引
+EXPLAIN SELECT * FROM t1 WHERE e='g';
