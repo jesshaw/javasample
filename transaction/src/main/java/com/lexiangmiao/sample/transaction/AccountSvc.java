@@ -1,14 +1,14 @@
 package com.lexiangmiao.sample.transaction;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import java.math.BigDecimal;
 
 /**
  * Created by mzxiao on 2020/8/21 13:56
  */
-@Service
-@Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.MANDATORY )
-public class AccountSvc {
+public interface AccountSvc {
+    void transfer(String out, String in, BigDecimal amount) throws Exception;
+
+    void outMoney(String out, BigDecimal amount) throws Exception;
+
+    void inMoney(String in, BigDecimal amount) throws Exception;
 }

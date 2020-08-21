@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.math.BigDecimal;
+
 /**
  * Created by mzxiao on 2020/8/21 10:31
  */
@@ -17,10 +19,17 @@ public class TransactionSampleApp implements CommandLineRunner {
 
     @Autowired
     private AccountMapper accountMapper;
+
+    @Autowired
+    private AccountSvc accountSvc;
+
     @Override
     public void run(String... strings) throws Exception {
         Account byId = accountMapper.findById(2);
+//
+//        System.out.println(byId);
 
-        System.out.println(byId);
+//        accountSvc.transfer("alice", "tom", new BigDecimal("100"));
+
     }
 }
