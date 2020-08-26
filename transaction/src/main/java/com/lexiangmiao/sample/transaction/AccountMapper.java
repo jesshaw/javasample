@@ -9,19 +9,19 @@ import java.math.BigDecimal;
  */
 @Mapper
 public interface AccountMapper {
-    @Results(id = "accountResult", value = {
+    @Results(id = "accountResultById", value = {
             @Result(property = "id", column = "t_account_id", id = true),
-            @Result(property = "name", column = "name", id = true),
-            @Result(property = "balance", column = "balance", id = true)}
+            @Result(property = "name", column = "name"),
+            @Result(property = "balance", column = "balance")}
     )
     @Select("SELECT * FROM t_account WHERE t_account_id = #{id}")
     Account findById(@Param("id") long id);
 
 
-    @Results(id = "accountResult", value = {
+    @Results(id = "accountResultByName", value = {
             @Result(property = "id", column = "t_account_id", id = true),
-            @Result(property = "name", column = "name", id = true),
-            @Result(property = "balance", column = "balance", id = true)}
+            @Result(property = "name", column = "name"),
+            @Result(property = "balance", column = "balance")}
     )
     @Select("SELECT * FROM t_account WHERE name=#{name}")
     Account findByName(@Param("name") String name);
@@ -30,7 +30,7 @@ public interface AccountMapper {
     @SelectKey(statement="call identity()", keyProperty="id", before=false, resultType=int.class)
     int insert(Account account);
 
-    @Update("UPDATE t_account set balance=#{balance} WHERE name=#{name})")
+    @Update("UPDATE t_account set balance=#{balance} WHERE name=#{name}")
     int update(@Param("name") String name, @Param("balance")BigDecimal balance);
 
 }

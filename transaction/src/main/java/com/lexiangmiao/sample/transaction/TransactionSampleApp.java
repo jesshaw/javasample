@@ -18,18 +18,12 @@ public class TransactionSampleApp implements CommandLineRunner {
     }
 
     @Autowired
-    private AccountMapper accountMapper;
-
-    @Autowired
     private AccountSvc accountSvc;
 
     @Override
     public void run(String... strings) throws Exception {
-        Account byId = accountMapper.findById(2);
-//
-//        System.out.println(byId);
 
-//        accountSvc.transfer("alice", "tom", new BigDecimal("100"));
+        accountSvc.transfer("alice", "tom", new BigDecimal("100"));
 
     }
 }
