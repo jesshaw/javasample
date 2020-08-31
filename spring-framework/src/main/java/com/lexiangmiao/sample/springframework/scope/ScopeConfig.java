@@ -1,4 +1,4 @@
-package com.lexiangmiao.sample.springframework.SingtonPrototype;
+package com.lexiangmiao.sample.springframework.scope;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
-public class SingtonPrototypeConfig {
+public class ScopeConfig {
 
 
     @Bean
@@ -40,5 +40,11 @@ public class SingtonPrototypeConfig {
     @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public PrototypeIncludePrototype prototypeIncludePrototype() {
         return new PrototypeIncludePrototype();
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public SingletonIncludeSingleton singletonIncludeSingleton() {
+        return new SingletonIncludeSingleton();
     }
 }

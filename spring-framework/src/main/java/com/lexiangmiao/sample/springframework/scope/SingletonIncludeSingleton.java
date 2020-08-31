@@ -1,8 +1,8 @@
-package com.lexiangmiao.sample.springframework.SingtonPrototype;
+package com.lexiangmiao.sample.springframework.scope;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class PrototypeIncludeSingleton {
+public class SingletonIncludeSingleton {
     @Autowired
     private Singleton singleton;
 
