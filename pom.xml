@@ -19,6 +19,7 @@
         <module>service-order</module>
         <module>service-member</module>
         <module>service-eureka</module>
+        <module>spring-framework</module>
     </modules>
     <!--<parent>-->
         <!--<groupId>org.springframework.boot</groupId>-->
