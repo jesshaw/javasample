@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
  *         互斥性
  *         超时 解决断电或kill
  *         支持阻塞非阻塞
+ *         可重入   不能多次 setnx
  *
  */
 public interface RedisLock {

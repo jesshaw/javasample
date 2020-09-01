@@ -16,16 +16,21 @@ public class RedisLockImpl implements RedisLock {
 
     @Override
     public boolean tryLock(String key, long timeout, TimeUnit unit) {
-        String uuid = UUID.randomUUID().toString();
-        threadLocal.set(uuid);
-
-        boolean lock = stringRedisTemplate.opsForValue().setIfAbsent(key, uuid, timeout, unit);
-        while (!lock) { //自旋锁
+        boolean lock = false;
+        if (threadLocal.get() == null) {
+            String uuid = UUID.randomUUID().toString();
+            threadLocal.set(uuid);
             lock = stringRedisTemplate.opsForValue().setIfAbsent(key, uuid, timeout, unit);
-            if (lock) {
-                break;
+            while (!lock) { //自旋锁
+                lock = stringRedisTemplate.opsForValue().setIfAbsent(key, uuid, timeout, unit);
+                if (lock) {
+                    break;
+                }
             }
+        } else if (threadLocal.get().equals(stringRedisTemplate.opsForValue().get(key))) {
+            lock = true;
         }
+
         return lock;
     }
 
