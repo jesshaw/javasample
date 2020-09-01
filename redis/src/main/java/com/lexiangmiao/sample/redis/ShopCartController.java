@@ -1,11 +1,11 @@
 package com.lexiangmiao.sample.redis;
 
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.TimeUnit;
 
 @RestController
 public class ShopCartController {
@@ -13,6 +13,9 @@ public class ShopCartController {
     public static final String stockKehy = "stock";
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    private RedissonClient redisson;
 
     @RequestMapping("submitOrder")
     public String submitOrder() {
@@ -22,10 +25,10 @@ public class ShopCartController {
         支持阻塞非阻塞
         */
 
-        Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent(product,"ant",30,TimeUnit.SECONDS);
-        if (!lock) {
-            return "error";
-        }
+        RLock rLock = redisson.getLock(product);
+        rLock.lock(); //续命有默认值  阻塞
+//        rLock.tryLock(); 非阻塞
+
         try {
             int stock = Integer.parseInt(stringRedisTemplate.opsForValue().get(stockKehy));
             if (stock > 0) {
@@ -36,7 +39,7 @@ public class ShopCartController {
                 System.out.println("扣减失败，库存不足");
             }
         } finally {
-            stringRedisTemplate.delete(product);
+            rLock.unlock();
         }
         return "end";
     }

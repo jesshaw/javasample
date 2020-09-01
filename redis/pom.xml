@@ -11,5 +11,10 @@
 
     <artifactId>redis</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+        </dependency>
+    </dependencies>
 </project>
