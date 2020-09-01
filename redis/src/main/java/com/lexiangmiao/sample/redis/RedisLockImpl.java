@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -15,9 +16,12 @@ public class RedisLockImpl implements RedisLock {
 
     @Override
     public boolean tryLock(String key, long timeout, TimeUnit unit) {
-        boolean lock = stringRedisTemplate.opsForValue().setIfAbsent(key, "ant", timeout, unit);
+        String uuid = UUID.randomUUID().toString();
+        threadLocal.set(uuid);
+
+        boolean lock = stringRedisTemplate.opsForValue().setIfAbsent(key, uuid, timeout, unit);
         while (!lock) { //自旋锁
-            lock = stringRedisTemplate.opsForValue().setIfAbsent(key, "ant", timeout, unit);
+            lock = stringRedisTemplate.opsForValue().setIfAbsent(key, uuid, timeout, unit);
             if (lock) {
                 break;
             }
@@ -27,6 +31,8 @@ public class RedisLockImpl implements RedisLock {
 
     @Override
     public void releaseLock(String key) {
-        stringRedisTemplate.delete(key);
+        if (threadLocal.get().equals(stringRedisTemplate.opsForValue().get(key))) {
+            stringRedisTemplate.delete(key);
+        }
     }
 }
