@@ -5,6 +5,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.TimeUnit;
+
 @RestController
 public class ShopCartController {
     public static final String product = "123456789";
@@ -14,8 +16,13 @@ public class ShopCartController {
 
     @RequestMapping("submitOrder")
     public String submitOrder() {
-        // 互斥性
-        Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent(product, "ant");
+        /*
+        互斥性
+        超时解决断电或kill
+        */
+
+        Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent(product,"ant",30,TimeUnit.SECONDS);
+
         if (!lock) {
             return "error";
         }
