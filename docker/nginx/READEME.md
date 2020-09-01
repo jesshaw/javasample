@@ -7,7 +7,16 @@
 
 
 
-    upstream tomcatserver {
+    upstream tomcats {
         server localhost:8088 weight=1;
         server localhost:8089 weight=1;
     }
+
+
+
+
+        location / {
+            proxy_pass http://tomcats;
+            proxy_set_header Host $host;
+            index  index.html index.htm;
+        }

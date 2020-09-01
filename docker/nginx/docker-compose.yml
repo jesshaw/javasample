@@ -4,7 +4,7 @@ services:
 #        restart: always
         image: nginx:1.19.2
         container_name: web
-#        network_mode: bridge
+        network_mode: bridge
         volumes:
         - ./content:/usr/share/nginx/html:ro
         - ./nginx.conf:/etc/nginx/nginx.conf:ro
