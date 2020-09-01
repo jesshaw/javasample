@@ -14,16 +14,19 @@ public class ShopCartController {
 
     @RequestMapping("submitOrder")
     public String submitOrder() {
-        synchronized (product) {
-            int stock = Integer.parseInt(stringRedisTemplate.opsForValue().get(stockKehy));
-            if (stock > 0) {
-                stock = stock - 1;
-                stringRedisTemplate.opsForValue().set(stockKehy, stock + "");
-                System.out.println("扣减成功，库存：" + stock);
-            } else {
-                System.out.println("扣减失败，库存不足");
-            }
+        Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent(product, "ant");
+        if (!lock) {
+            return "error";
         }
+        int stock = Integer.parseInt(stringRedisTemplate.opsForValue().get(stockKehy));
+        if (stock > 0) {
+            stock = stock - 1;
+            stringRedisTemplate.opsForValue().set(stockKehy, stock + "");
+            System.out.println("扣减成功，库存：" + stock);
+        } else {
+            System.out.println("扣减失败，库存不足");
+        }
+        stringRedisTemplate.delete(product);
         return "end";
     }
 }
