@@ -18,11 +18,11 @@ public class ShopCartController {
     public String submitOrder() {
         /*
         互斥性
-        超时解决断电或kill
+        超时 解决断电或kill
+        支持阻塞非阻塞
         */
 
         Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent(product,"ant",30,TimeUnit.SECONDS);
-
         if (!lock) {
             return "error";
         }
