@@ -7,7 +7,7 @@
     <groupId>com.lexiangmiao.sample</groupId>
     <artifactId>sample</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <modules>
         <module>cee</module>
         <module>algorithms</module>
@@ -20,6 +20,7 @@
         <module>service-member</module>
         <module>service-eureka</module>
         <module>spring-framework</module>
+        <module>dubbo-spring-boot</module>
     </modules>
     <!--<parent>-->
         <!--<groupId>org.springframework.boot</groupId>-->
@@ -30,6 +31,9 @@
         <java.version>1.8</java.version>
         <start-class>Main</start-class>
         <mysql.version>5.1.38</mysql.version>
+        <revision>1.0-SNAPSHOT</revision>
+        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
+        <dubbo.version>2.7.7</dubbo.version>
     </properties>
     <build>
         <plugins>
@@ -165,7 +169,7 @@
                 <!-- Import dependency management from Spring Boot 非父引用方式-->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.3.3.RELEASE</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -177,7 +181,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Hoxton SR8</version>
+                <version>Hoxton.SR8</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -187,6 +191,35 @@
                 <artifactId>redisson</artifactId>
                 <version>3.13.3</version>
             </dependency>
+
+            <!-- Apache Dubbo  -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-dependencies-bom</artifactId>
+                <version>${dubbo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
