@@ -17,3 +17,4 @@ public interface RedisLock {
 
     void releaseLock(String key);
 }
+

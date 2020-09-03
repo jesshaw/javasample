@@ -1,7 +1,9 @@
-package com.lexiangmiao.sample.transaction;
+package com.lexiangmiao.sample.transaction.springtransaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -13,10 +15,11 @@ public class AccountSvcImpl implements AccountSvc {
     @Autowired
     private AccountMapper accountMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void transfer(String out, String in, BigDecimal amount) throws Exception {
-        outMoney(out, amount);
         inMoney(in, amount);
+        outMoney(out, amount);
     }
 
     @Override

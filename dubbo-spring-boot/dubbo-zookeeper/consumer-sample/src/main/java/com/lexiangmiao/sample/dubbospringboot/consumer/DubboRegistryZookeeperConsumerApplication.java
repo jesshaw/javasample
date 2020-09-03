@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
+import java.util.stream.IntStream;
+
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 public class DubboRegistryZookeeperConsumerApplication {
 
@@ -23,7 +25,16 @@ public class DubboRegistryZookeeperConsumerApplication {
 
     @Bean
     public ApplicationRunner runner() {
-        return args -> logger.info(demoService.sayHello("jes"));
+        return args -> {
+            IntStream.range(0, 50).forEach(i -> {
+                logger.info(demoService.sayHello("jes"));
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        };
     }
 
 }

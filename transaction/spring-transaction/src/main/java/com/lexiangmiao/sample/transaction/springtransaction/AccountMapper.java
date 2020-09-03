@@ -1,4 +1,4 @@
-package com.lexiangmiao.sample.transaction;
+package com.lexiangmiao.sample.transaction.springtransaction;
 
 import org.apache.ibatis.annotations.*;
 
@@ -31,6 +31,6 @@ public interface AccountMapper {
     int insert(Account account);
 
     @Update("UPDATE t_account set balance=#{balance} WHERE name=#{name}")
-    int update(@Param("name") String name, @Param("balance")BigDecimal balance);
+    int update(@Param("name") String name, @Param("balance") BigDecimal balance);
 
 }

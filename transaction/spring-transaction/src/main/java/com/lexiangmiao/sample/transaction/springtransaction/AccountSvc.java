@@ -1,4 +1,4 @@
-package com.lexiangmiao.sample.transaction;
+package com.lexiangmiao.sample.transaction.springtransaction;
 
 import java.math.BigDecimal;
 

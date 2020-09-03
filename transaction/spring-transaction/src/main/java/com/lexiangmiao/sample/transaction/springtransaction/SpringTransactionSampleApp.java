@@ -11,10 +11,10 @@ import java.math.BigDecimal;
  * Created by mzxiao on 2020/8/21 10:31
  */
 @SpringBootApplication
-public class TransactionSampleApp implements CommandLineRunner {
+public class SpringTransactionSampleApp implements CommandLineRunner {
 
     public static void main(String[] args) {
-        SpringApplication.run(TransactionSampleApp.class, args);
+        SpringApplication.run(SpringTransactionSampleApp.class, args);
     }
 
     @Autowired
@@ -23,7 +23,7 @@ public class TransactionSampleApp implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        accountSvc.transfer("alice", "tom", new BigDecimal("100"));
+        accountSvc.transfer("alice", "tom", new BigDecimal("200"));
 
     }
 }
