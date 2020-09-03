@@ -1,4 +1,4 @@
-package com.lexiangmiao.sample.transaction;
+package com.lexiangmiao.sample.transaction.springtransaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
