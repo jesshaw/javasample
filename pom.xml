@@ -30,10 +30,15 @@
     <properties>
         <java.version>1.8</java.version>
         <start-class>Main</start-class>
-        <mysql.version>5.1.38</mysql.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
         <revision>1.0-SNAPSHOT</revision>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <dubbo.version>2.7.7</dubbo.version>
+        <mybatis-spring-boot-starter.version>2.1.3</mybatis-spring-boot-starter.version>
+        <druid-spring-boot-starter.version>1.1.10</druid-spring-boot-starter.version>
+        <lombok.version>1.18.8</lombok.version>
+        <seata.version>1.3.0</seata.version>
     </properties>
     <build>
         <plugins>
@@ -66,102 +71,102 @@
         </plugins>
     </build>
 
-    <dependencies>
+    <!--<dependencies>-->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-web</artifactId>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter</artifactId>-->
+        <!--</dependency>-->
 
-        <!--mybatis mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.7</version>
-        </dependency>
+        <!--&lt;!&ndash;mybatis mysql &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<version>${mysql-connector-java.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.mybatis.spring.boot</groupId>-->
+            <!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
+            <!--<version>1.3.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.pagehelper</groupId>-->
+            <!--<artifactId>pagehelper-spring-boot-starter</artifactId>-->
+            <!--<version>1.2.7</version>-->
+        <!--</dependency>-->
 
-        <!--spring boot test-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+        <!--&lt;!&ndash;spring boot test&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-test</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
 
-        <!--redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-        </dependency>
+        <!--&lt;!&ndash;redis&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>redis.clients</groupId>-->
+            <!--<artifactId>jedis</artifactId>-->
+        <!--</dependency>-->
 
-        <!--json-->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-parameter-names</artifactId>
-        </dependency>
+        <!--&lt;!&ndash;json&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+            <!--<artifactId>jackson-databind</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.datatype</groupId>-->
+            <!--<artifactId>jackson-datatype-jdk8</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.datatype</groupId>-->
+            <!--<artifactId>jackson-datatype-jsr310</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.module</groupId>-->
+            <!--<artifactId>jackson-module-parameter-names</artifactId>-->
+        <!--</dependency>-->
 
-        <!--excel export-->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>3.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.9</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--&lt;!&ndash;excel export&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.poi</groupId>-->
+            <!--<artifactId>poi</artifactId>-->
+            <!--<version>3.9</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.poi</groupId>-->
+            <!--<artifactId>poi-ooxml</artifactId>-->
+            <!--<version>3.9</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>xml-apis</groupId>-->
+                    <!--<artifactId>xml-apis</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
 
-        <!--message queue-->
-        <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
-            <version>5.7.3</version>
-        </dependency>
+        <!--&lt;!&ndash;message queue&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.rabbitmq</groupId>-->
+            <!--<artifactId>amqp-client</artifactId>-->
+            <!--<version>5.7.3</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+        <!--<dependency>-->
+            <!--<groupId>junit</groupId>-->
+            <!--<artifactId>junit</artifactId>-->
+            <!--<version>4.12</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+    <!--</dependencies>-->
 
     <dependencyManagement>
         <dependencies>
@@ -176,12 +181,12 @@
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.1.3</version>
+                <version>${mybatis-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Hoxton.SR8</version>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
