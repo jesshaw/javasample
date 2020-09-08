@@ -39,7 +39,7 @@ public class JacksonJsonUtil {
             return null;
         }
         ObjectMapper mapper = getObjectMapper();
-        return mapper.readValue(content, typeReference);
+        return (T) mapper.readValue(content, typeReference);
     }
 
     public static <T> List<T> parseArray(String content, Class<T> clazz) throws IOException {
