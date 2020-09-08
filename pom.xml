@@ -26,6 +26,7 @@
         <module>cloud-provider-payment</module>
         <module>cloud-api-commons</module>
         <module>cloud-eureka-server</module>
+        <module>cloud-eureka-server2</module>
     </modules>
 
     <properties>
