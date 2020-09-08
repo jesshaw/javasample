@@ -9,3 +9,4 @@
     1. enabling automatic build
     1. update the value
     1 restart idea
+1. EnableDiscoveryClient
