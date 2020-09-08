@@ -22,7 +22,9 @@
         <module>service-eureka</module>
         <module>spring-framework</module>
         <module>dubbo-spring-boot</module>
-        <module>cloud-provider-payment8001</module>
+        <module>cloud-consumer-order</module>
+        <module>cloud-provider-payment</module>
+        <module>cloud-api-commons</module>
     </modules>
 
     <properties>
