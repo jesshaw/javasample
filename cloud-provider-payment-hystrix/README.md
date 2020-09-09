@@ -13,7 +13,12 @@
     1. 服务宕机须降级
     1. 调用方出故障或自我有要求须降级
     
-1. HystrixCommand实现服务端超时和异常降级
+1. @HystrixCommand实现服务端超时和异常降级
     1. main对应类加@EnableCircuitBreaker注解
     2. 实现@HystrixCommand注解的fallback方法和属性配置
+
+1. @HystrixCommand中的熔断circuitBreaker
+    1. HystrixCommandProperties属性值，三个重要参数：快照时间窗，请求总数阀值，错误百分比阀值
+
+
 
