@@ -28,6 +28,9 @@
         <module>cloud-eureka-server</module>
         <module>cloud-eureka-server2</module>
         <module>cloud-provider-payment-zookeepper</module>
+        <module>cloud-consumer-order-feign</module>
+        <module>cloud-provider-payment-hystrix</module>
+        <module>cloud-consumer-order-hystrix</module>
     </modules>
 
     <properties>
