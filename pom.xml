@@ -37,6 +37,7 @@
         <module>cloud-config-client</module>
         <module>cloud-config-client-bus</module>
         <module>cloud-provider-stream-rabbitmq</module>
+        <module>cloud-consumer-stream-rabbitmq</module>
     </modules>
 
     <properties>
