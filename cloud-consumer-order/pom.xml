@@ -17,6 +17,11 @@
             <artifactId>cloud-api-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--sleuth zipkin 用于分布式链路跟踪-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
