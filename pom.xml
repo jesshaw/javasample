@@ -38,6 +38,7 @@
         <module>cloud-config-client-bus</module>
         <module>cloud-provider-stream-rabbitmq</module>
         <module>cloud-consumer-stream-rabbitmq</module>
+        <module>cloud-consumer-stream-rabbitmq2</module>
     </modules>
 
     <properties>
