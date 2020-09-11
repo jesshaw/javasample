@@ -35,6 +35,7 @@
         <module>cloud-gateway</module>
         <module>cloud-config-center</module>
         <module>cloud-config-client</module>
+        <module>cloud-config-client-bus</module>
     </modules>
 
     <properties>

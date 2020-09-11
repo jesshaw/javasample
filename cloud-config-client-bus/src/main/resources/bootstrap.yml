@@ -1,5 +1,5 @@
 server:
-  port: 3355
+  port: 3366
 
 
 spring:
@@ -21,7 +21,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:7001/eureka
-      #defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
 
 # 暴露监控端点 用于config及时刷新
 management:

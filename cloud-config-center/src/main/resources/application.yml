@@ -11,11 +11,24 @@ spring:
         git:
           uri: https://github.com/jesshaw/springcloud-config.git
           search-paths:
-            - springcloud-config
+          - springcloud-config
       label: master
+  rabbitmq:  # rabbitmq相关配置
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   client:
     service-url:
-#      defaultZone: http://localhost:7001/eureka
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      defaultZone: http://localhost:7001/eureka
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+
+# 暴露监控端点 用于config及时刷新
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
