@@ -1,0 +1,15 @@
+version: '2'
+services:
+    nginx:
+#        restart: always
+        image: nginx:1.19.2
+        container_name: web
+        network_mode: bridge
+        volumes:
+        - ./content:/usr/share/nginx/html:ro
+        - ./nginx.conf:/etc/nginx/nginx.conf:ro
+#        environment:
+#        - NGINX_HOST=lexiangmiao.com
+#        - NGINX_PORT=80
+        ports:
+        - 8848:80
