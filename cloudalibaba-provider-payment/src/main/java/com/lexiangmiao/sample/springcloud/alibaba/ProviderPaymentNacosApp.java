@@ -1,11 +1,13 @@
-package com.lexiangmiao.sample.springcloud;
+package com.lexiangmiao.sample.springcloud.alibaba;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-public class ProviderStreamRabbitmqApp {
+@EnableDiscoveryClient
+public class ProviderPaymentNacosApp {
     public static void main(String[] args) {
-        SpringApplication.run(ProviderStreamRabbitmqApp.class, args);
+        SpringApplication.run(ProviderPaymentNacosApp.class, args);
     }
 }

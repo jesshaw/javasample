@@ -1,4 +1,4 @@
-package com.lexiangmiao.sample.springcloud.controller;
+package com.lexiangmiao.sample.springcloud.alibaba.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

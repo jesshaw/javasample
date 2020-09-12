@@ -2,26 +2,23 @@ package com.lexiangmiao.sample.springcloud.alibaba.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.Resource;
 
 @RestController
 @Slf4j
-public class OrderController {
+@RefreshScope // 支持nacos的动态刷新
+public class ConfigClientController {
     @Value("${server.port}")
     String serverPort;
-    @Value("${service-url.nacos-payment-servcie}")
-    String paymentUrl;
-    @Resource
-    RestTemplate restTemplate;
 
-    @GetMapping("/consumer/payment/nacos/{id}")
-    public String getPayment(@PathVariable("id") Integer id) {
+    @Value("${config.info}")
+    String configInfo;
 
-        return restTemplate.getForObject(paymentUrl + "/payment/nacos/" + id, String.class);
+
+    @GetMapping("/config/info")
+    public String getConfigInfo() {
+        return "server port:" + serverPort + "\n config info: " + configInfo;
     }
 }

@@ -6,8 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class ProviderPaymentNacosApp {
+public class ConsumerOrderNacosApp {
     public static void main(String[] args) {
-        SpringApplication.run(ProviderPaymentNacosApp.class, args);
+        SpringApplication.run(ConsumerOrderNacosApp.class, args);
     }
 }

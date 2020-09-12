@@ -3,7 +3,7 @@ services:
     nginx:
 #        restart: always
         image: nginx:1.19.2
-        container_name: web
+        container_name: my-nacos-cluster
         network_mode: bridge
         volumes:
         - ./content:/usr/share/nginx/html:ro

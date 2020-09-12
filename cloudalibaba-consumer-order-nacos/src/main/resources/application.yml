@@ -1,14 +1,12 @@
 server:
-  port: 9001
+  port: 8083
 spring:
   application:
-    name: provider-payment-nacos
+    name: consumer-order-nacos
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+
+service-url:
+  nacos-payment-servcie: http://provider-payment-nacos

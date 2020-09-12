@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 3377
 spring:
   application:
     name: config-client-nacos
@@ -7,6 +7,11 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+#        group: SH_GROUP
+        namespace: 79c3e1dd-97bc-4b3c-ac48-28564e1b165c
 
-service-url:
-  nacos-payment-servcie: http://provider-payment-nacos
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+# config-client-nacos-dev.yaml

@@ -1,12 +1,6 @@
-server:
-  port: 8083
-spring:
-  application:
-    name: consumer-order-nacos
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
 
-service-url:
-  nacos-payment-servcie: http://provider-payment-nacos
+spring:
+  profiles:
+#    active: info #激活info环境
+    active: dev #激活dev环境
+#    active: test #激活test环境
