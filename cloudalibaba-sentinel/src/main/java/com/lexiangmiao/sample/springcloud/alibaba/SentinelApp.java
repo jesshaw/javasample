@@ -6,8 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class CloudalibabaSentinelApp {
+public class SentinelApp {
     public static void main(String[] args) {
-        SpringApplication.run(CloudalibabaSentinelApp.class, args);
+        SpringApplication.run(SentinelApp.class, args);
     }
 }

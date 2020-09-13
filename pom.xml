@@ -43,6 +43,7 @@
         <module>cloudalibaba-consumer-order-nacos</module>
         <module>cloudalibaba-config-client-nacos</module>
         <module>docker-deploy</module>
+        <module>cloudalibaba-sentinel</module>
     </modules>
 
     <properties>

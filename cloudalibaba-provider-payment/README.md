@@ -15,6 +15,9 @@
     $ sudo sh startup.sh -m standalone
     $ sudo sh shutdown.sh
     ```
+   独立版存放路径 /usr/local/nacos-server-1.3.1
+   集群版版存放路径 /usr/local/nacos3333，/usr/local/nacos4444，/usr/local/nacos5555
+
     
 1. dockertags显示指定镜偈的所有tags
     1. /usr/local/bin目录下新增 dockertags 文件

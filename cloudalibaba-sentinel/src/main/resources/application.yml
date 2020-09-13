@@ -1,12 +1,20 @@
 server:
-  port: 8083
+  port: 8401
 spring:
   application:
-    name: consumer-order-nacos
+    name: sentinel-service
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:18080
+        port: 8719 # 客户端用的端口
+        clientIp: localhost # 不指定的话，可能不显示图表 参考：https://github.com/alibaba/spring-cloud-alibaba/issues/1220
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
-service-url:
-  nacos-payment-servcie: http://provider-payment-nacos
