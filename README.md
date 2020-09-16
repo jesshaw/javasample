@@ -4,3 +4,9 @@
 
 ## connection redis
 redis-cli -h 127.0.0.1 -p 6379 -a "mypass"
+
+
+## 秒杀的问题
+https://github.com/sonake/seconds-kill-demo
+
+

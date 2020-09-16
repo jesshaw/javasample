@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8084
 spring:
   application:
     name: consumer-order-nacos
@@ -7,6 +7,16 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-
+    sentinel:
+      transport:
+        dashboard: localhost:18080
+        port: 8719 # 客户端用的端口
+        #        clientIp: 192.168.1.7 # 因为用了docker，不指定的话，可能会指向虚拟主机IP，可能会导致不显示图表 参考：https://github.com/alibaba/spring-cloud-alibaba/issues/1220
+        clientIp: 10.38.118.23
+#        clientIp: 172.20.10.9
 service-url:
   nacos-payment-servcie: http://provider-payment-nacos
+
+feign:
+  sentinel:
+    enabled: true

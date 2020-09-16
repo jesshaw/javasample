@@ -11,5 +11,12 @@ public class MapApp {
         map.put("王五","王五");
         map.put("Jes","Jes");
         System.out.println(map.get("Jes"));
+
+        System.out.println(call());
+    }
+
+    public static String call() {
+        String b = "sss";
+        return "ccc"+b;
     }
 }
