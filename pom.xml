@@ -45,6 +45,8 @@
         <module>docker-deploy</module>
         <module>cloudalibaba-sentinel</module>
         <module>java-container</module>
+        <module>jvm</module>
+        <module>seckill</module>
     </modules>
 
     <properties>

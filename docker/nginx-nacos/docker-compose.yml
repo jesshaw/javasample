@@ -6,7 +6,7 @@ services:
         container_name: my-nacos-cluster
         network_mode: bridge
         volumes:
-        - ./content:/usr/share/nginx/html:ro
+        - ./content:/usr/share/nginx/html:ro # 只读映射
         - ./nginx.conf:/etc/nginx/nginx.conf:ro
 #        environment:
 #        - NGINX_HOST=lexiangmiao.com

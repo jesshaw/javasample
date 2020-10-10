@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  mysentinel:
+    networks:
+    - mynet
+    build: . # 编译生成镜像
+    ports:
+    - "18080:8080"
+networks:
+  mynet:
+    external: true

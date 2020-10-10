@@ -1,0 +1,19 @@
+version: "2"
+services:
+  nacos: #服务名任意取
+    networks:
+    - mynet
+    image: nacos/nacos-server:1.3.2
+    container_name: nacos-standalone-mysql
+    env_file:
+    - ./env/nacos-standlone-mysql.env
+    volumes:
+    - ./standalone-logs/:/home/nacos/logs
+    - ./init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+    - "8848:8848"
+    - "9555:9555"
+    restart: on-failure
+networks:
+  mynet:
+    external: true

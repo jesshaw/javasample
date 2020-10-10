@@ -1,10 +1,12 @@
 version: '2'
 services:
     nginx:
+        networks:
+        - mynet
 #        restart: always
         image: nginx:1.19.2
         container_name: web
-        network_mode: bridge
+        network_mode: bridge # 默认就是桥接类型的网络
         volumes:
         - ./content:/usr/share/nginx/html:ro
         - ./nginx.conf:/etc/nginx/nginx.conf:ro
@@ -13,3 +15,7 @@ services:
 #        - NGINX_PORT=80
         ports:
         - 8080:80
+
+networks:
+    mynet:
+        external: true
