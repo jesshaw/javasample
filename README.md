@@ -10,3 +10,6 @@ redis-cli -h 127.0.0.1 -p 6379 -a "mypass"
 https://github.com/sonake/seconds-kill-demo
 
 
+## IntelliJ IDEA
+亲测有效
+https://www.jb51.net/article/195962.htm
