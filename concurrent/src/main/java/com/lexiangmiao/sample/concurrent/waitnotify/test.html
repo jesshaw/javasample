@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><table>
+    <thead><tr>
+        <th>方法</th>
+        <th>作用</th>
+    </tr></thead>
+    <tbody>
+    <tr>
+        <td>wait</td>
+        <td>线程自动释放占有的对象锁，并等待notify。</td>
+    </tr>
+    <tr>
+        <td>notify</td>
+        <td>随机唤醒一个正在wait当前对象的线程，并让被唤醒的线程拿到对象锁</td>
+    </tr>
+    <tr>
+        <td>notifyAll</td>
+        <td>唤醒所有正在wait当前对象的线程，但是被唤醒的线程会再次去竞争对象锁。因为一次只有一个线程能拿到锁，所有其他没有拿到锁的线程会被阻塞。推荐使用。</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
