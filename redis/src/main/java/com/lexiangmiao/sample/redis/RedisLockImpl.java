@@ -24,6 +24,7 @@ public class RedisLockImpl implements RedisLock {
                     return threads[i];
                 }
             }
+            
             group = group.getParent();
         }
         return null;

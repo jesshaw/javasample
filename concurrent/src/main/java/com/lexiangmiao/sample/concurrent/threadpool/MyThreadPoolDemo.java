@@ -37,6 +37,8 @@ public class MyThreadPoolDemo {
 //        ExecutorService threadPool = Executors.newFixedThreadPool(5); //一个银行5个办理柜台
 //        ExecutorService threadPool = Executors.newSingleThreadExecutor(); //周末银行只开一个办理柜台
         ExecutorService threadPool = Executors.newCachedThreadPool(); //周末银行突然很多人，行长叫了一些人来加班
+//        ExecutorService threadPool = Executors.newScheduledThreadPool(2); //创建一个定长线程池，支持定时及周期性任务执行。
+
 
         // 模拟10个用户佃理业务，每个用户就是一个请求线程
 

@@ -12,6 +12,13 @@ import javax.annotation.Resource;
 
 @RestController
 public class OrderController {
+    @Override
+    public String toString() {
+        return "OrderController{" +
+                "paymentFeginService=" + paymentFeginService +
+                '}';
+    }
+
     @Resource
     PaymentFeginService paymentFeginService;
 
