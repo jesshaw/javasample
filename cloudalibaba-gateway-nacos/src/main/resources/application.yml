@@ -1,0 +1,43 @@
+server:
+  port: 19527
+
+spring:
+  application:
+    name: cloudalibaba-geteway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+#        namespace: adc676a4-42bf-4663-8b97-7c3165405de5
+    gateway:
+      routes:
+        # e.g. http://localhost:19527/payment/get/1?token=zdfad123
+        # e.g. http://localhost:19527/payment/lb?token=zdfad123
+        # e.g. http://localhost:19527/admin/v1/user/captcha?token=cafdsfdsfdsa
+        - id: payment_route1
+          uri: lb://provider-payment-nacos
+          predicates: #断言
+            - Path=/payment/get/**
+        - id: payment_route2
+          uri: lb://provider-payment-nacos
+          predicates:
+            - Path=/payment/lb/**
+        - id: user-domain
+          uri: lb://user-domain
+          predicates:
+            - Path=/admin/v1/user/captcha
+
+  #### 静态路由
+  #  cloud:
+  #    gateway:
+  #      routes:
+  #        - id: payment_route1
+  #          uri: http://localhost:8001
+  #          predicates: #断言
+  #            - Path=/payment/get/**
+  #
+  #        - id: payment_route2
+  #          uri: http://localhost:8001
+  #          predicates:
+  #            - Path=/payment/lb/**
+  ### 动态路由

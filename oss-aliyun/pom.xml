@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sample</artifactId>
+        <groupId>com.lexiangmiao.sample</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>oss-aliyun</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.taobao</groupId>
+            <artifactId>sdk</artifactId>
+            <version>4.1</version>
+        </dependency>
+    </dependencies>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>nexus-releases</id>-->
+<!--            <url>-->
+<!--                http://nexus.fm.fengmaoall.com/repository/maven-releases/-->
+<!--            </url>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
+</project>

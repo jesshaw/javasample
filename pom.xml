@@ -47,6 +47,8 @@
         <module>java-container</module>
         <module>jvm</module>
         <module>seckill</module>
+        <module>cloudalibaba-gateway-nacos</module>
+        <module>oss-aliyun</module>
     </modules>
 
     <properties>

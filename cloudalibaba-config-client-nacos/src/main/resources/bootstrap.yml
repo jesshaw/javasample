@@ -8,10 +8,11 @@ spring:
       discovery:
         server-addr: localhost:8848
       config:
+        # 以下3条的意思是指从localhost的nacos服务器加载对应namespace中以yaml扩展，名为 config-client-nacos的文件。
         server-addr: localhost:8848
+        namespace: 79c3e1dd-97bc-4b3c-ac48-28564e1b165c
         file-extension: yaml
 #        group: SH_GROUP
-        namespace: 79c3e1dd-97bc-4b3c-ac48-28564e1b165c
 
 # ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
 # config-client-nacos-dev.yaml

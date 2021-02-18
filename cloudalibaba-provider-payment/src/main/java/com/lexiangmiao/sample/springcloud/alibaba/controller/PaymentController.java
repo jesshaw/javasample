@@ -30,12 +30,17 @@ public class PaymentController {
         hashMap.put(3L, new Payment(3L, "38abc83"));
     }
 
-    @GetMapping("/paymentSql/{id}")
-    public CommonResult<Payment> getPaymentSql(@PathVariable("id") Long id) {
-        Payment payment = hashMap.get(id);
-        CommonResult<Payment> result = new CommonResult<>(200, "from mysql, server port: " + serverPort, payment);
-        return result;
+
+    @GetMapping(value = "/payment/get/{id}")
+    public String getPaymentById(@PathVariable("id") Long id) {
+        return id+"查询成功";
     }
+
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLb() {
+        return serverPort;
+    }
+
 
 
 
