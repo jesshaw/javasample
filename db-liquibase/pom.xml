@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sample</artifactId>
+        <groupId>com.lexiangmiao.sample</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>db-liquibase</artifactId>
+    <properties>
+        <!--        <liquibase.version>3.6.3</liquibase.version>-->
+        <liquibase.version>4.3.1</liquibase.version>
+
+        <spring-boot.version>2.3.3.RELEASE</spring-boot.version>
+        <spring.version>5.2.8.RELEASE</spring.version>
+
+        <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
+        <hibernate-core.version>5.3.8.Final</hibernate-core.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
+        <javassist.version>3.23.2-GA</javassist.version>
+
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.22</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+<!--            &lt;!&ndash; 方式一 读取文件 &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.liquibase</groupId>-->
+<!--                <artifactId>liquibase-maven-plugin</artifactId>-->
+<!--                <version>${liquibase.version}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>process-resources</phase>-->
+<!--                        <configuration>-->
+<!--                            <propertyFile>-->
+<!--                                ${project.basedir}/src/main/resources/config/liquibase/liquibase.mysql.properties-->
+<!--                            </propertyFile>-->
+<!--                        </configuration>-->
+<!--                        <goals>-->
+<!--                            <goal>update</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+<!--            &lt;!&ndash; 方式二 直接配置 &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.liquibase</groupId>-->
+<!--                <artifactId>liquibase-maven-plugin</artifactId>-->
+<!--                <version>${liquibase.version}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>process-resources</phase>-->
+<!--                        <configuration>-->
+<!--                            <changeLogFile>-->
+<!--                                ${project.basedir}/src/main/resources/config/liquibase/master.xml-->
+<!--                            </changeLogFile>-->
+<!--                            <driver>com.mysql.jdbc.Driver</driver>-->
+<!--                            <url>jdbc:mysql://localhost:3306/store</url>-->
+<!--                            <defaultSchemaName>store</defaultSchemaName>-->
+<!--                            <username>root</username>-->
+<!--                            <password>123456</password>-->
+<!--                            <verbose>true</verbose>-->
+<!--                            <logging>debug</logging>-->
+<!--                            <contexts>!test</contexts>-->
+<!--                        </configuration>-->
+<!--                        <goals>-->
+<!--                            <goal>update</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                &lt;!&ndash;                <configuration>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <diffChangeLogFile>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        ${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </diffChangeLogFile>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <driver>com.mysql.cj.jdbc.Driver</driver>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <url>jdbc:mysql://localhost:3306/store</url>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <defaultSchemaName>reservation</defaultSchemaName>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <username>root</username>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <password>123456</password>&ndash;&gt;-->
+<!--                &lt;!&ndash;&lt;!&ndash;                    <referenceUrl>hibernate:spring:com.lexiangmiao.hotel.reservation.domain?dialect=org.hibernate.dialect.MySQL8Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <verbose>true</verbose>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <logging>debug</logging>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <contexts>!test</contexts>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </configuration>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <dependencies>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.hibernate</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>hibernate-core</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${hibernate-core.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.javassist</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>javassist</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${javassist.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.liquibase.ext</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>liquibase-hibernate5</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${liquibase-hibernate5.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>spring-boot-starter-data-jpa</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>2.1.10.RELEASE</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>javax.validation</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>validation-api</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${validation-api.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.springframework</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>spring-core</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${spring.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.springframework</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>spring-context</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${spring.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.springframework</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>spring-beans</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${spring.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </dependencies>&ndash;&gt;-->
+<!--            </plugin>-->
+<!--            方式三-->
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
+                <configuration>
+                    <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml
+                    </changeLogFile>
+                    <diffChangeLogFile>
+                        ${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml
+                    </diffChangeLogFile>
+                    <url>jdbc:mysql://localhost:3306/store</url>
+                    <driver>com.mysql.cj.jdbc.Driver</driver>
+                    <username>root</username>
+                    <password>123456</password>
+                    <verbose>true</verbose>
+                    <logging>debug</logging>
+                    <contexts>!test</contexts>
+                    <referenceUrl>jdbc:mysql://localhost:3306/store_test</referenceUrl>
+                    <referenceDriver>com.mysql.cj.jdbc.Driver</referenceDriver>
+                    <referenceUsername>root</referenceUsername>
+                    <referencePassword>123456</referencePassword>
+                </configuration>
+            </plugin>
+<!--            方式四 引用hibernate进行比较-->
+<!--            <plugin>-->
+<!--                <groupId>org.liquibase</groupId>-->
+<!--                <artifactId>liquibase-maven-plugin</artifactId>-->
+<!--                <version>${liquibase.version}</version>-->
+
+<!--                <configuration>-->
+
+<!--                    <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml-->
+<!--                    </changeLogFile>-->
+<!--                    <diffChangeLogFile>-->
+<!--                        ${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml-->
+<!--                    </diffChangeLogFile>-->
+<!--                    <driver>com.mysql.cj.jdbc.Driver</driver>-->
+<!--                    <url>jdbc:mysql://localhost:3306/store</url>-->
+<!--                    <defaultSchemaName>reservation</defaultSchemaName>-->
+<!--                    <username>root</username>-->
+<!--                    <password>123456</password>-->
+<!--                    &lt;!&ndash;                    <referenceUrl>hibernate:spring:com.lexiangmiao.hotel.reservation.domain?dialect=org.hibernate.dialect.MySQL8Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>&ndash;&gt;-->
+<!--                    <verbose>true</verbose>-->
+<!--                    <logging>debug</logging>-->
+<!--                    <contexts>!test</contexts>-->
+<!--                </configuration>-->
+<!--                &lt;!&ndash;                <dependencies>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.hibernate</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>hibernate-core</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${hibernate-core.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.javassist</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>javassist</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${javassist.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.liquibase.ext</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>liquibase-hibernate5</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${liquibase-hibernate5.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>spring-boot-starter-data-jpa</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>2.1.10.RELEASE</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>javax.validation</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>validation-api</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${validation-api.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.springframework</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>spring-core</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${spring.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.springframework</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>spring-context</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${spring.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <groupId>org.springframework</groupId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <artifactId>spring-beans</artifactId>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <version>${spring.version}</version>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </dependencies>&ndash;&gt;-->
+<!--            </plugin>-->
+        </plugins>
+    </build>
+
+</project>
