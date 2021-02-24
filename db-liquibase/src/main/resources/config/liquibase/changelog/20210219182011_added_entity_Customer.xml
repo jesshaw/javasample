@@ -83,4 +83,7 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="20210219182011-tag-2.0" author="jes">
+        <tagDatabase tag="2.0"/>
+    </changeSet>
 </databaseChangeLog>

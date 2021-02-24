@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/store
+    username: root
+    password: 123456
+  liquibase:
+    change-log: classpath:/config/liquibase/master.xml
+    enabled: true
+#    tag: 1.0
+#    contexts: test
+    rollback-file: classpath:/config/liquibase/rollback.sql
+
+logging:
+  level:
+    liquibase: INFO
+
+#  # Enabling H2 Console
+#spring.h2.console.enabled: true
